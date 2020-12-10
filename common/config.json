@@ -1,0 +1,7 @@
+{
+    "Server": ":8080",
+    "MongoDBHost": "locahost",
+    "DBUser": "bruno",
+    "DBPwd": "donpedro42",
+    "DataBase": "estore"
+}
