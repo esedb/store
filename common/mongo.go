@@ -31,6 +31,7 @@ func createSession() {
 		// Password: AppConfig.DBPwd,
 		Timeout: 60 * time.Second,
 	})
+
 }
 
 func addIndexes() {
@@ -55,4 +56,5 @@ func addIndexes() {
 func StartUp() {
 	initConfig()
 	createSession()
+	addIndexes()
 }

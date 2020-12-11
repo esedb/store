@@ -2,6 +2,7 @@ package common
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"os"
 )
@@ -32,4 +33,5 @@ func loadAppConfig() {
 	if err != nil {
 		log.Fatalf("[Decoding AppConfig] %s\n", err)
 	}
+	fmt.Println("Appconfig: ", AppConfig)
 }

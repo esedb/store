@@ -3,6 +3,7 @@ package main
 import (
 	"estore/common"
 	"estore/routers"
+	f "fmt"
 	"net/http"
 
 	"github.com/urfave/negroni"
@@ -17,6 +18,7 @@ func main() {
 		Addr:    common.AppConfig.Server,
 		Handler: n,
 	}
+	f.Println("server listening on: ", server.Addr)
 	server.ListenAndServe()
 
 }
