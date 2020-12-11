@@ -2,6 +2,7 @@ package main
 
 import (
 	"estore/common"
+	"estore/routers"
 	"net/http"
 
 	"github.com/urfave/negroni"
@@ -10,7 +11,9 @@ import (
 func main() {
 	common.StartUp()
 	n := negroni.Classic()
-	server := http.Server{
+	router := routers.InitRoutes()
+	n.UseHandler(router)
+	server := &http.Server{
 		Addr:    common.AppConfig.Server,
 		Handler: n,
 	}

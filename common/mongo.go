@@ -14,10 +14,10 @@ var err error
 func GetSession() *mgo.Session {
 	if session == nil {
 		session, err = mgo.DialWithInfo(&mgo.DialInfo{
-			Addrs:    []string{AppConfig.MongoDBHost},
-			Username: AppConfig.DBUser,
-			Password: AppConfig.DBPwd,
-			Timeout:  60 * time.Second,
+			Addrs: []string{AppConfig.MongoDBHost},
+			// Username: AppConfig.DBUser,
+			// Password: AppConfig.DBPwd,
+			Timeout: 60 * time.Second,
 		})
 	}
 	return session
@@ -26,10 +26,10 @@ func GetSession() *mgo.Session {
 //CreateSession create mongo session
 func createSession() {
 	session, err = mgo.DialWithInfo(&mgo.DialInfo{
-		Addrs:    []string{AppConfig.MongoDBHost},
-		Username: AppConfig.DBUser,
-		Password: AppConfig.DBPwd,
-		Timeout:  60 * time.Second,
+		Addrs: []string{AppConfig.MongoDBHost},
+		// Username: AppConfig.DBUser,
+		// Password: AppConfig.DBPwd,
+		Timeout: 60 * time.Second,
 	})
 }
 

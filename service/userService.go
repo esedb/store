@@ -7,19 +7,16 @@ import (
 )
 
 //CreateUser createUser service
-func CreateUser(user *model.User) (*model.User, error) {
+func CreateUser(user *model.User) error {
 	context := common.NewContext()
 	defer context.Close()
 	c := context.DbCollection("users")
 	r := &repo.UserRepository{
 		C: c,
 	}
-	user, err := r.CreateUser(user)
-	if err != nil {
-		return nil, err
-	}
+	err := r.CreateUser(user)
 
-	return user, err
+	return err
 
 }
 
@@ -41,18 +38,14 @@ func GetUserByEmail(email string) (*model.User, error) {
 }
 
 //UpdateUser update user by email
-func UpdateUser(user *model.User) (*model.User, error) {
+func UpdateUser(user *model.User) error {
 	context := common.NewContext()
 	defer context.Close()
 	c := context.DbCollection("users")
 	r := &repo.UserRepository{
 		C: c,
 	}
-	user, err := r.UpdateUser(user)
-	if err != nil {
-		return nil, err
-	}
+	err := r.UpdateUser(user)
 
-	return user, err
-
+	return err
 }

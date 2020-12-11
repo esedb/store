@@ -14,7 +14,7 @@ type UserRepository struct {
 }
 
 //CreateUser creat User in Collection
-func (r *UserRepository) CreateUser(user *model.User) (*model.User, error) {
+func (r *UserRepository) CreateUser(user *model.User) error {
 	_id := bson.NewObjectId()
 	user.Id = _id
 	hpass, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
@@ -35,12 +35,12 @@ func (r *UserRepository) CreateUser(user *model.User) (*model.User, error) {
 
 	err = r.C.Insert(&m)
 
-	return user, err
+	return err
 
 }
 
 //UpdateUser update User in Collection
-func (r *UserRepository) UpdateUser(user *model.User) (*model.User, error) {
+func (r *UserRepository) UpdateUser(user *model.User) error {
 	err := r.C.Update(bson.M{"email": user.Email}, bson.M{
 		"$set": bson.M{
 			"firstname": user.FirstName,
@@ -49,7 +49,7 @@ func (r *UserRepository) UpdateUser(user *model.User) (*model.User, error) {
 		},
 	})
 
-	return user, err
+	return err
 
 }
 
