@@ -23,7 +23,7 @@ func GetSession() *mgo.Session {
 	return session
 }
 
-//CreateSession create mongo sessio
+//CreateSession create mongo session
 func createSession() {
 	session, err = mgo.DialWithInfo(&mgo.DialInfo{
 		Addrs:    []string{AppConfig.MongoDBHost},
