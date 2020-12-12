@@ -16,7 +16,7 @@ type UserRepository struct {
 //CreateUser creat User in Collection
 func (r *UserRepository) CreateUser(user *model.User) error {
 	_id := bson.NewObjectId()
-	user.Id = _id
+	user.ID = _id
 	hpass, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 
 	if err != nil {

@@ -20,5 +20,6 @@ func main() {
 	}
 	f.Println("server listening on: ", server.Addr)
 	server.ListenAndServe()
+	// Live Reloading gin --appPort 7000 -p 3000
 
 }
