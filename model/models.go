@@ -44,6 +44,6 @@ type Store struct {
 
 //Category category models
 type Category struct {
-	ID   bson.ObjectId `json:"_id,omitempty"`
+	Id   bson.ObjectId `json:"id,omitempty"`
 	Name string        `json:"name"`
 }

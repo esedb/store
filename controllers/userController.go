@@ -5,7 +5,7 @@ import (
 	"estore/common"
 	"estore/model"
 	"estore/service"
-	"fmt"
+
 	"log"
 	"net/http"
 
@@ -14,7 +14,6 @@ import (
 
 //CreateUser controller for createing User
 func CreateUser(w http.ResponseWriter, r *http.Request) {
-	fmt.Print("CreateUser...")
 	var user model.User
 	err := json.NewDecoder(r.Body).Decode(&user)
 	if err != nil {

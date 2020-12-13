@@ -14,6 +14,7 @@ func CreateUser(user *model.User) error {
 	r := &repo.UserRepository{
 		C: c,
 	}
+
 	err := r.CreateUser(user)
 
 	return err

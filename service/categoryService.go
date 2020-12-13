@@ -6,15 +6,17 @@ import (
 	repo "estore/repository"
 )
 
-func init() {
-
-}
-
-type CategoryService struct {
+type categoryService struct {
 	r *repo.CategoryRepository
 }
 
-func (service *CategoryService) NewCategoryService() *CategoryService {
+var CategoryService = &categoryService{}
+
+func init() {
+	CategoryService.NewCategoryService()
+}
+
+func (service *categoryService) NewCategoryService() *categoryService {
 	context := common.NewContext()
 	c := context.DbCollection("category")
 	service.r = &repo.CategoryRepository{
@@ -25,19 +27,20 @@ func (service *CategoryService) NewCategoryService() *CategoryService {
 
 }
 
-func (service *CategoryService) CreateCategory(category *model.Category) error {
+func (service *categoryService) CreateCategory(category *model.Category) error {
 	err := service.r.CreateCategory(category)
+
 	return err
 }
 
-func (service *CategoryService) UpdateCategory(category *model.Category) error {
+func (service *categoryService) UpdateCategory(category *model.Category) error {
 	err := service.r.UpdateCategory(category)
 
 	return err
 
 }
 
-func (service *CategoryService) SearchCategoryByName(name string) (*model.Category, error) {
+func (service *categoryService) SearchCategoryByName(name string) (*model.Category, error) {
 	category, err := service.r.SearchCategoryByName(name)
 	if err != nil {
 		return nil, err
@@ -45,6 +48,6 @@ func (service *CategoryService) SearchCategoryByName(name string) (*model.Catego
 	return category, err
 }
 
-func (service *CategoryService) GetCollection() *repo.CategoryRepository {
+func (service *categoryService) GetCollection() *repo.CategoryRepository {
 	return service.r
 }
