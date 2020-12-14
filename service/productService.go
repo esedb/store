@@ -53,13 +53,13 @@ func (service *productService) SearchPRoductByName(name string) (*model.Product,
 
 }
 
-func (service *productService) GetAllProducts() []model.Product {
+func (service *productService) GetAllProducts(store_id string) []model.Product {
 	context := common.NewContext()
 	defer context.Close()
 	c := context.DbCollection("product")
 	r := &repo.ProductRepository{
 		C: c}
-	product := r.GetAllProducts()
+	product := r.GetAllProducts(&store_id)
 
 	return product
 

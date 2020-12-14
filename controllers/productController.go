@@ -100,8 +100,9 @@ func SearchProductByName(w http.ResponseWriter, r *http.Request) {
 }
 
 func GetAllProducts(w http.ResponseWriter, r *http.Request) {
-	product := service.ProductService.GetAllProducts()
-
+	vars := mux.Vars(r)
+	store_id := vars["store_id"]
+	product := service.ProductService.GetAllProducts(store_id)
 	resp, err := json.Marshal(&product)
 	if err != nil {
 		common.DisplayError(

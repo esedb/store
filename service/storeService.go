@@ -6,7 +6,11 @@ import (
 	repo "estore/repository"
 )
 
-func CreateStore(store *model.Store) error {
+type storeService struct{}
+
+var StoreService = &storeService{}
+
+func (service *storeService) CreateStore(store *model.Store) error {
 	context := common.NewContext()
 	defer context.Close()
 	c := context.DbCollection("store")
@@ -19,7 +23,7 @@ func CreateStore(store *model.Store) error {
 
 }
 
-func UpdateStore(store *model.Store) (*model.Store, error) {
+func (service *storeService) UpdateStore(store *model.Store) error {
 	context := common.NewContext()
 	defer context.Close()
 	c := context.DbCollection("store")
@@ -28,9 +32,26 @@ func UpdateStore(store *model.Store) (*model.Store, error) {
 	}
 	err := r.UpdateStore(store)
 	if err != nil {
+		return err
+	}
+
+	return err
+
+}
+
+func (service *storeService) GetAllStore(merchant_id string) ([]model.Store, error) {
+	context := common.NewContext()
+	defer context.Close()
+	c := context.DbCollection("store")
+	r := &repo.StoreRepository{
+		C: c,
+	}
+
+	stores, err := r.GetAllStores(&merchant_id)
+	if err != nil {
 		return nil, err
 	}
 
-	return store, err
+	return stores, err
 
 }

@@ -41,10 +41,10 @@ func (r *ProductRepository) SearchProduct(name string) (*model.Product, error) {
 	return &product, err
 }
 
-func (r *ProductRepository) GetAllProducts() []model.Product {
+func (r *ProductRepository) GetAllProducts(store_id *string) []model.Product {
 	var products []model.Product
 	var product model.Product
-	iter := r.C.Find(nil).Iter()
+	iter := r.C.Find(bson.M{"store_id": store_id}).Iter()
 
 	if iter.Next(&product) {
 		products = append(products, product)
