@@ -19,7 +19,7 @@ func (r *ProductRepository) CreateProduct(product *model.Product) error {
 }
 
 func (r *ProductRepository) UpdateProduct(product *model.Product) error {
-	err := r.C.Update(bson.M{"_id": product.ID}, bson.M{
+	err := r.C.Update(bson.M{"_id": product.Id}, bson.M{
 		"$set": bson.M{
 			"name":        product.Name,
 			"price":       product.Price,

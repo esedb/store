@@ -5,7 +5,6 @@ import (
 	"estore/common"
 	"estore/model"
 	"estore/service"
-	"fmt"
 	"log"
 	"net/http"
 
@@ -47,7 +46,7 @@ func CreateCategory(w http.ResponseWriter, r *http.Request) {
 
 func UpdateCategory(w http.ResponseWriter, r *http.Request) {
 	var category model.Category
-	fmt.Println("Body: ", r.Body.)
+
 	err := json.NewDecoder(r.Body).Decode(&category)
 	if err != nil {
 		common.DisplayError(

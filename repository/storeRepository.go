@@ -22,7 +22,7 @@ func (r *StoreRepository) CreateStore(store *model.Store) error {
 
 //UpdateStore store collection
 func (r *StoreRepository) UpdateStore(store *model.Store) error {
-	err := r.C.Update(bson.M{"_id": store.ID}, bson.M{
+	err := r.C.Update(bson.M{"_id": store.Id}, bson.M{
 		"$set": bson.M{
 			"name":     store.Name,
 			"location": store.Location,
@@ -37,7 +37,7 @@ func (r *StoreRepository) UpdateStore(store *model.Store) error {
 
 //UpdatePhone update store phone number
 func (r *StoreRepository) UpdatePhone(store *model.Store) error {
-	err := r.C.Update(bson.M{"_id": store.ID}, bson.M{
+	err := r.C.Update(bson.M{"_id": store.Id}, bson.M{
 		"$set": bson.M{
 			"Phone": store.Phone,
 		},

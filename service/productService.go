@@ -6,7 +6,11 @@ import (
 	repo "estore/repository"
 )
 
-func CreateProduct(product *model.Product) error {
+type productService struct{}
+
+var ProductService = &productService{}
+
+func (service *productService) CreateProduct(product *model.Product) error {
 	context := common.NewContext()
 	defer context.Close()
 	c := context.DbCollection("product")
@@ -19,7 +23,7 @@ func CreateProduct(product *model.Product) error {
 
 }
 
-func UpdateProduct(product *model.Product) (*model.Product, error) {
+func (service *productService) UpdateProduct(product *model.Product) error {
 	context := common.NewContext()
 	defer context.Close()
 	c := context.DbCollection("product")
@@ -27,20 +31,18 @@ func UpdateProduct(product *model.Product) (*model.Product, error) {
 		C: c,
 	}
 	err := r.UpdateProduct(product)
-	if err != nil {
-		return nil, err
-	}
 
-	return product, err
+	return err
 
 }
 
-func SearchPRoductByName(name *string) (*model.Product, error) {
+func (service *productService) SearchPRoductByName(name string) (*model.Product, error) {
 	context := common.NewContext()
 	defer context.Close()
 	c := context.DbCollection("product")
-	r := &repo.ProductRepository{c}
-	product, err := r.SearchProduct(*name)
+	r := &repo.ProductRepository{
+		C: c}
+	product, err := r.SearchProduct(name)
 	if err != nil {
 		return nil, err
 	}

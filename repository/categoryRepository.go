@@ -2,7 +2,6 @@ package repository
 
 import (
 	"estore/model"
-	"fmt"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -22,8 +21,6 @@ func (r *CategoryRepository) CreateCategory(category *model.Category) error {
 }
 
 func (r *CategoryRepository) UpdateCategory(category *model.Category) error {
-	fmt.Println("Category ID: ", category.Id)
-
 	err := r.C.Update(bson.M{"_id": category.Id}, bson.M{
 		"$set": bson.M{
 			"name": category.Name,
@@ -37,5 +34,6 @@ func (r *CategoryRepository) UpdateCategory(category *model.Category) error {
 func (r *CategoryRepository) SearchCategoryByName(name string) (*model.Category, error) {
 	var category model.Category
 	err := r.C.Find(bson.M{"name": name}).One(&category)
+
 	return &category, err
 }

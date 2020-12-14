@@ -4,7 +4,7 @@ import "gopkg.in/mgo.v2/bson"
 
 //User MerchantUser struct
 type User struct {
-	ID        bson.ObjectId `json:"_id,omitempty"`
+	Id        bson.ObjectId `json:"_id,omitempty"`
 	FirstName string        `json:"firstname"`
 	LastName  string        `json:"lastname"`
 	Email     string        `json:"email"`
@@ -16,7 +16,7 @@ type User struct {
 //Product Used for create Products
 //properties field is other generic properties from the main one
 type Product struct {
-	ID          bson.ObjectId     `json:"id,omitempty"`
+	Id          bson.ObjectId     `bson:"_id" json:"id"`
 	Name        string            `json:"name"`
 	Price       int64             `json:"price"`
 	Description string            `json:"description"`
@@ -34,7 +34,7 @@ type FileDetails struct {
 
 //Store contains relationships with Owner
 type Store struct {
-	ID         bson.ObjectId `json:"_id,omitempty"`
+	Id         bson.ObjectId `bson:"_id" json:"id"`
 	Name       string        `json:"name"`
 	Location   string        `json:"location"`
 	Address    string        `json:"address"`
@@ -44,6 +44,6 @@ type Store struct {
 
 //Category category models
 type Category struct {
-	Id   bson.ObjectId `json:"id,omitempty"`
+	Id   bson.ObjectId `bson:"_id" json:"id"`
 	Name string        `json:"name"`
 }
