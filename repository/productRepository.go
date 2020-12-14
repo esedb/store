@@ -2,6 +2,7 @@ package repository
 
 import (
 	"estore/model"
+	"time"
 
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
@@ -12,6 +13,9 @@ type ProductRepository struct {
 }
 
 func (r *ProductRepository) CreateProduct(product *model.Product) error {
+	_id := bson.NewObjectId()
+	product.Id = _id
+	product.CreatedAt = time.Now().Unix()
 	err := r.C.Insert(&product)
 
 	return err
@@ -26,8 +30,7 @@ func (r *ProductRepository) UpdateProduct(product *model.Product) error {
 			"description": product.Description,
 			"properties":  product.Properties,
 			"files":       product.Files,
-			"store_id":    product.StoreID,
-			"updated_at":  product.UpdatedAt,
+			"updated_at":  time.Now().Unix(),
 		},
 	})
 
@@ -38,6 +41,16 @@ func (r *ProductRepository) UpdateProduct(product *model.Product) error {
 func (r *ProductRepository) SearchProduct(name string) (*model.Product, error) {
 	var product model.Product
 	err := r.C.Find(bson.M{"name": name}).One(&product)
+	return &product, err
+}
+
+func (r *ProductRepository) GetProduct(product_id string) (*model.Product, error) {
+	var product model.Product
+	err := r.C.Find(bson.M{"_id": product_id}).One(&product)
+	if err != nil {
+		return nil, err
+	}
+
 	return &product, err
 }
 

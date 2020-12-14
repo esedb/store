@@ -18,22 +18,22 @@ type User struct {
 //Product Used for create Products
 //properties field is other generic properties from the main one
 type Product struct {
-	Id          bson.ObjectId     `bson:"_id" json:"id"`
-	Name        string            `json:"name"`
-	Price       float64           `json:"price"`
-	Description string            `json:"description"`
-	Properties  map[string]string `json:"properties"`
-	Files       []FileDetails     `json:"files"`
-	StoreID     string            `json:"store_id"`
-	CreatedAt   int64             `json:"created_at"`
-	UpdatedAt   int64             `json:"updated_at"`
+	Id          bson.ObjectId       `bson:"_id" json:"id"`
+	Name        string              `json:"name" validate:"required"`
+	Price       float64             `json:"price" validate:"required"`
+	Description string              `json:"description" validate:"required"`
+	Properties  []map[string]string `json:"properties"`
+	Files       []FileDetails       `json:"files"`
+	StoreID     string              `json:"store_id" validate:"required"`
+	CreatedAt   int64               `bson:"created_at" json:"created_at"`
+	UpdatedAt   int64               `bson:"updated_at" json:"updated_at"`
 }
 
 //FileDetails file properites
 type FileDetails struct {
-	Name string `json:"name"`
-	Data string `json:"data"`
-	Size string `json:"size"`
+	Name string  `json:"name" validate:"required"`
+	Data string  `json:"data" validate:"required"`
+	Size float32 `json:"size" validate:"required"`
 }
 
 //Store contains relationships with Owner
@@ -43,11 +43,11 @@ type Store struct {
 	Location   string        `json:"location"`
 	Address    string        `json:"address"`
 	Phone      string        `json:"phone"`
-	MerchantID string        `json:"merchant_id"`
+	MerchantId string        `bson:"merchant_id" json:"merchant_id"`
 }
 
 //Category category models
 type Category struct {
 	Id   bson.ObjectId `bson:"_id" json:"id"`
-	Name string        `json:"name"`
+	Name string        `json:"name" validate:"required"`
 }

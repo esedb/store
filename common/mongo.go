@@ -42,10 +42,19 @@ func addIndexes() {
 		Sparse:     true,
 	}
 
+	storeIndex := mgo.Index{
+		Key:        []string{"name"},
+		Unique:     true,
+		Background: true,
+		Sparse:     true,
+	}
+
 	session := GetSession().Copy()
 	defer session.Close()
 	usersCol := session.DB(AppConfig.DataBase).C("users")
+	storesCol := session.DB(AppConfig.DataBase).C("stores")
 	err = usersCol.EnsureIndex(userIndex)
+	err = storesCol.EnsureIndex(storeIndex)
 
 	if err != nil {
 		log.Fatalf("[addIndex] - %s\n", err)

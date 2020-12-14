@@ -15,6 +15,8 @@ type StoreRepository struct {
 
 //CreateStore creat User in Collection
 func (r *StoreRepository) CreateStore(store *model.Store) error {
+	_id := bson.NewObjectId()
+	store.Id = _id
 	err := r.C.Insert(&store)
 
 	return err

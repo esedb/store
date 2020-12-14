@@ -10,7 +10,7 @@ import (
 func StoreRouter(router *mux.Router) *mux.Router {
 	router.HandleFunc("/store", controllers.StoreController.CreateStore).Methods("POST")
 	router.HandleFunc("/store", controllers.StoreController.UpdateStore).Methods("PUT")
-	router.HandleFunc("/store", controllers.StoreController.GetAllStore).Methods("GET")
+	router.HandleFunc("/store/{merchant_id}", controllers.StoreController.GetAllStore).Methods("GET")
 
 	return router
 

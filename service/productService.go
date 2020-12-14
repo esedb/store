@@ -14,7 +14,7 @@ var ProductService = &productService{}
 func (service *productService) CreateProduct(product *model.Product) error {
 	context := common.NewContext()
 	defer context.Close()
-	c := context.DbCollection("product")
+	c := context.DbCollection("products")
 	r := &repo.ProductRepository{
 		C: c,
 	}
@@ -28,7 +28,7 @@ func (service *productService) CreateProduct(product *model.Product) error {
 func (service *productService) UpdateProduct(product *model.Product) error {
 	context := common.NewContext()
 	defer context.Close()
-	c := context.DbCollection("product")
+	c := context.DbCollection("products")
 	r := &repo.ProductRepository{
 		C: c,
 	}
@@ -39,10 +39,10 @@ func (service *productService) UpdateProduct(product *model.Product) error {
 
 }
 
-func (service *productService) SearchPRoductByName(name string) (*model.Product, error) {
+func (service *productService) SearchProductByName(name string) (*model.Product, error) {
 	context := common.NewContext()
 	defer context.Close()
-	c := context.DbCollection("product")
+	c := context.DbCollection("products")
 	r := &repo.ProductRepository{
 		C: c}
 	product, err := r.SearchProduct(name)
@@ -56,11 +56,27 @@ func (service *productService) SearchPRoductByName(name string) (*model.Product,
 func (service *productService) GetAllProducts(store_id string) []model.Product {
 	context := common.NewContext()
 	defer context.Close()
-	c := context.DbCollection("product")
+	c := context.DbCollection("products")
 	r := &repo.ProductRepository{
 		C: c}
 	product := r.GetAllProducts(&store_id)
 
 	return product
+
+}
+
+func (service *productService) GetProduct(product_id string) (*model.Product, error) {
+	context := common.NewContext()
+	defer context.Close()
+	c := context.DbCollection("product")
+	r := &repo.ProductRepository{
+		C: c}
+	product, err := r.GetProduct(product_id)
+	if err != nil {
+		return nil, err
+
+	}
+
+	return product, err
 
 }

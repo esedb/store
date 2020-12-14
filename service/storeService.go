@@ -4,6 +4,7 @@ import (
 	"estore/common"
 	"estore/model"
 	repo "estore/repository"
+	"fmt"
 )
 
 type storeService struct{}
@@ -13,7 +14,7 @@ var StoreService = &storeService{}
 func (service *storeService) CreateStore(store *model.Store) error {
 	context := common.NewContext()
 	defer context.Close()
-	c := context.DbCollection("store")
+	c := context.DbCollection("stores")
 	r := &repo.StoreRepository{
 		C: c,
 	}
@@ -26,7 +27,7 @@ func (service *storeService) CreateStore(store *model.Store) error {
 func (service *storeService) UpdateStore(store *model.Store) error {
 	context := common.NewContext()
 	defer context.Close()
-	c := context.DbCollection("store")
+	c := context.DbCollection("stores")
 	r := &repo.StoreRepository{
 		C: c,
 	}
@@ -41,8 +42,9 @@ func (service *storeService) UpdateStore(store *model.Store) error {
 
 func (service *storeService) GetAllStore(merchant_id string) ([]model.Store, error) {
 	context := common.NewContext()
+	fmt.Println("merchant_id: ", merchant_id)
 	defer context.Close()
-	c := context.DbCollection("store")
+	c := context.DbCollection("stores")
 	r := &repo.StoreRepository{
 		C: c,
 	}

@@ -10,6 +10,7 @@ func InitRoutes() *mux.Router {
 	router = UserRouter(router)
 	router = CategoryRouter(router)
 	router = ProductRouter(router)
+	router = StoreRouter(router)
 
 	return router
 

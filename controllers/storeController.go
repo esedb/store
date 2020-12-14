@@ -83,9 +83,9 @@ func (controller storeController) UpdateStore(w http.ResponseWriter, r *http.Req
 
 func (controller storeController) GetAllStore(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	store_id := vars["merchant_id"]
+	merchant_id := vars["merchant_id"]
 
-	stores, err := service.StoreService.GetAllStore(store_id)
+	stores, err := service.StoreService.GetAllStore(merchant_id)
 	if err != nil {
 		common.DisplayError(
 			w,
