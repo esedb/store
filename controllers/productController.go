@@ -98,3 +98,23 @@ func SearchProductByName(w http.ResponseWriter, r *http.Request) {
 	w.Write(resp)
 
 }
+
+func GetAllProducts(w http.ResponseWriter, r *http.Request) {
+	product := service.ProductService.GetAllProducts()
+
+	resp, err := json.Marshal(&product)
+	if err != nil {
+		common.DisplayError(
+			w,
+			err,
+			"An error occured.",
+			500)
+
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	w.Write(resp)
+
+}

@@ -27,6 +27,7 @@ func (r *ProductRepository) UpdateProduct(product *model.Product) error {
 			"properties":  product.Properties,
 			"files":       product.Files,
 			"store_id":    product.StoreID,
+			"updated_at":  product.UpdatedAt,
 		},
 	})
 
@@ -38,4 +39,17 @@ func (r *ProductRepository) SearchProduct(name string) (*model.Product, error) {
 	var product model.Product
 	err := r.C.Find(bson.M{"name": name}).One(&product)
 	return &product, err
+}
+
+func (r *ProductRepository) GetAllProducts() []model.Product {
+	var products []model.Product
+	var product model.Product
+	iter := r.C.Find(nil).Iter()
+
+	if iter.Next(&product) {
+		products = append(products, product)
+
+	}
+
+	return products
 }

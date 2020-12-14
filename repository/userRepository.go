@@ -43,9 +43,10 @@ func (r *UserRepository) CreateUser(user *model.User) error {
 func (r *UserRepository) UpdateUser(user *model.User) error {
 	err := r.C.Update(bson.M{"email": user.Email}, bson.M{
 		"$set": bson.M{
-			"firstname": user.FirstName,
-			"lastname":  user.LastName,
-			"phone":     user.Phone,
+			"firstname":  user.FirstName,
+			"lastname":   user.LastName,
+			"phone":      user.Phone,
+			"udpated_at": user.UpdatedAt,
 		},
 	})
 

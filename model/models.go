@@ -11,6 +11,8 @@ type User struct {
 	Password  string        `json:"password"`
 	Roles     string        `json:"roles"`
 	Phone     string        `json:"phone"`
+	CreatedAt int64         `json:"created_at"`
+	UpdatedAt int64         `json:"updated_at"`
 }
 
 //Product Used for create Products
@@ -18,11 +20,13 @@ type User struct {
 type Product struct {
 	Id          bson.ObjectId     `bson:"_id" json:"id"`
 	Name        string            `json:"name"`
-	Price       int64             `json:"price"`
+	Price       float64           `json:"price"`
 	Description string            `json:"description"`
 	Properties  map[string]string `json:"properties"`
 	Files       []FileDetails     `json:"files"`
 	StoreID     string            `json:"store_id"`
+	CreatedAt   int64             `json:"created_at"`
+	UpdatedAt   int64             `json:"updated_at"`
 }
 
 //FileDetails file properites

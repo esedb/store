@@ -4,6 +4,7 @@ import (
 	"estore/common"
 	"estore/model"
 	repo "estore/repository"
+	"time"
 )
 
 //CreateUser createUser service
@@ -14,6 +15,7 @@ func CreateUser(user *model.User) error {
 	r := &repo.UserRepository{
 		C: c,
 	}
+	user.CreatedAt = time.Now().UTC().Unix()
 
 	err := r.CreateUser(user)
 
@@ -46,6 +48,7 @@ func UpdateUser(user *model.User) error {
 	r := &repo.UserRepository{
 		C: c,
 	}
+	user.UpdatedAt = time.Now().Unix()
 	err := r.UpdateUser(user)
 
 	return err

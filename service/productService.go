@@ -4,6 +4,7 @@ import (
 	"estore/common"
 	"estore/model"
 	repo "estore/repository"
+	"time"
 )
 
 type productService struct{}
@@ -17,6 +18,7 @@ func (service *productService) CreateProduct(product *model.Product) error {
 	r := &repo.ProductRepository{
 		C: c,
 	}
+	product.CreatedAt = time.Now().Unix()
 	err := r.CreateProduct(product)
 
 	return err
@@ -30,6 +32,7 @@ func (service *productService) UpdateProduct(product *model.Product) error {
 	r := &repo.ProductRepository{
 		C: c,
 	}
+	product.UpdatedAt = time.Now().Unix()
 	err := r.UpdateProduct(product)
 
 	return err
@@ -47,5 +50,17 @@ func (service *productService) SearchPRoductByName(name string) (*model.Product,
 		return nil, err
 	}
 	return product, err
+
+}
+
+func (service *productService) GetAllProducts() []model.Product {
+	context := common.NewContext()
+	defer context.Close()
+	c := context.DbCollection("product")
+	r := &repo.ProductRepository{
+		C: c}
+	product := r.GetAllProducts()
+
+	return product
 
 }
