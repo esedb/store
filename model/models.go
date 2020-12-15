@@ -24,9 +24,10 @@ type Product struct {
 	Description string              `json:"description" validate:"required"`
 	Properties  []map[string]string `json:"properties"`
 	Files       []FileDetails       `json:"files"`
-	StoreID     string              `json:"store_id" validate:"required"`
+	StoreID     string              `bson:"store_id" json:"store_id" validate:"required"`
 	CreatedAt   int64               `bson:"created_at" json:"created_at"`
 	UpdatedAt   int64               `bson:"updated_at" json:"updated_at"`
+	Qty         int64               `json:"qty" validate:"required"`
 }
 
 //FileDetails file properites

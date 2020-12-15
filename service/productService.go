@@ -45,7 +45,7 @@ func (service *productService) SearchProductByName(name string) (*model.Product,
 	c := context.DbCollection("products")
 	r := &repo.ProductRepository{
 		C: c}
-	product, err := r.SearchProduct(name)
+	product, err := r.SearchProductByName(name)
 	if err != nil {
 		return nil, err
 	}

@@ -30,8 +30,8 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		common.DisplayError(
 			w,
 			verr,
-			"Unable to create a Proudct at this moment, please try later",
-			500)
+			"Validation Error!",
+			400)
 
 		return
 
@@ -71,13 +71,27 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
+
+	_validator := validator.New()
+	verr := _validator.Struct(product)
+	if verr != nil {
+		common.DisplayError(
+			w,
+			verr,
+			"Validation Error!",
+			400)
+
+		return
+
+	}
+
 	er := service.ProductService.UpdateProduct(&product)
 	if err != nil {
 		common.DisplayError(
 			w,
 			er,
 			"Unable to update a Product at this moment, please try later",
-			500)
+			400)
 
 		return
 
@@ -116,8 +130,8 @@ func SearchProductByName(w http.ResponseWriter, r *http.Request) {
 func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	store_id := vars["store_id"]
-	product := service.ProductService.GetAllProducts(store_id)
-	resp, err := json.Marshal(&product)
+	products := service.ProductService.GetAllProducts(store_id)
+	resp, err := json.Marshal(&products)
 	if err != nil {
 		common.DisplayError(
 			w,
