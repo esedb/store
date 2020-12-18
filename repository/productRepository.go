@@ -2,7 +2,6 @@ package repository
 
 import (
 	"estore/model"
-	"fmt"
 	"strings"
 	"time"
 
@@ -47,7 +46,6 @@ func (r *ProductRepository) SearchProductByName(name string) (*model.Product, er
 	var product model.Product
 	name = strings.ToLower(name)
 	err := r.C.Find(bson.M{"name": name}).One(&product)
-	fmt.Println("products.... ", product)
 	return &product, err
 }
 
