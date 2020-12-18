@@ -17,17 +17,18 @@ type User struct {
 
 //Product Used for create Products
 //properties field is other generic properties from the main one
+type ananymous interface{}
 type Product struct {
-	Id          bson.ObjectId       `bson:"_id" json:"id"`
-	Name        string              `json:"name" validate:"required"`
-	Price       float64             `json:"price" validate:"required"`
-	Description string              `json:"description" validate:"required"`
-	Properties  []map[string]string `json:"properties"`
-	Files       []FileDetails       `json:"files"`
-	StoreID     string              `bson:"store_id" json:"store_id" validate:"required"`
-	CreatedAt   int64               `bson:"created_at" json:"created_at"`
-	UpdatedAt   int64               `bson:"updated_at" json:"updated_at"`
-	Qty         int64               `json:"qty" validate:"required"`
+	Id          bson.ObjectId          `bson:"_id" json:"id"`
+	Name        string                 `json:"name" validate:"required"`
+	Price       float64                `json:"price" validate:"required"`
+	Description string                 `json:"description" validate:"required"`
+	Properties  []map[string]ananymous `json:"properties"`
+	Files       []FileDetails          `json:"files"`
+	StoreID     string                 `bson:"store_id" json:"store_id" validate:"required"`
+	CreatedAt   int64                  `bson:"created_at" json:"created_at"`
+	UpdatedAt   int64                  `bson:"updated_at" json:"updated_at"`
+	Qty         int64                  `json:"qty" validate:"required"`
 }
 
 //FileDetails file properites
