@@ -9,7 +9,7 @@ func InitRoutes() *mux.Router {
 	router := mux.NewRouter()
 	router = UserRouter(router)
 	router = CategoryRouter(router)
-	router = ProductRouter(router)
+	router = ItemRouter(router)
 	router = StoreRouter(router)
 
 	return router

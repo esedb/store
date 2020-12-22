@@ -65,7 +65,7 @@ func (controller storeController) UpdateStore(w http.ResponseWriter, r *http.Req
 		common.DisplayError(
 			w,
 			er,
-			"Unable to update a Product at this moment, please try later",
+			"Unable to update a Item at this moment, please try later",
 			500)
 
 		return
@@ -73,7 +73,7 @@ func (controller storeController) UpdateStore(w http.ResponseWriter, r *http.Req
 	}
 	resp, err := json.Marshal(&store)
 	if err != nil {
-		log.Fatalf("[UpdateProductcontroller] %s\n", err)
+		log.Fatalf("[UpdateItemcontroller] %s\n", err)
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)

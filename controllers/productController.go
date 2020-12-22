@@ -12,9 +12,9 @@ import (
 	"gopkg.in/go-playground/validator.v9"
 )
 
-func CreateProduct(w http.ResponseWriter, r *http.Request) {
-	var product model.Product
-	err := json.NewDecoder(r.Body).Decode(&product)
+func CreateItem(w http.ResponseWriter, r *http.Request) {
+	var item model.Item
+	err := json.NewDecoder(r.Body).Decode(&item)
 	if err != nil {
 		common.DisplayError(
 			w,
@@ -25,7 +25,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	_validator := validator.New()
-	verr := _validator.Struct(product)
+	verr := _validator.Struct(item)
 	if verr != nil {
 		common.DisplayError(
 			w,
@@ -37,7 +37,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	er := service.ProductService.CreateProduct(&product)
+	er := service.ItemService.CreateItem(&item)
 	if err != nil {
 		common.DisplayError(
 			w,
@@ -48,7 +48,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 
 	}
-	resp, err := json.Marshal(&product)
+	resp, err := json.Marshal(&item)
 	if err != nil {
 		log.Fatalf("[CreateUserController] %s\n", err)
 	}
@@ -58,10 +58,10 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func UpdateProduct(w http.ResponseWriter, r *http.Request) {
-	var product model.Product
+func UpdateItem(w http.ResponseWriter, r *http.Request) {
+	var item model.Item
 
-	err := json.NewDecoder(r.Body).Decode(&product)
+	err := json.NewDecoder(r.Body).Decode(&item)
 	if err != nil {
 		common.DisplayError(
 			w,
@@ -73,7 +73,7 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	_validator := validator.New()
-	verr := _validator.Struct(product)
+	verr := _validator.Struct(item)
 	if verr != nil {
 		common.DisplayError(
 			w,
@@ -85,20 +85,20 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	er := service.ProductService.UpdateProduct(&product)
+	er := service.ItemService.UpdateItem(&item)
 	if err != nil {
 		common.DisplayError(
 			w,
 			er,
-			"Unable to update a Product at this moment, please try later",
+			"Unable to update a Item at this moment, please try later",
 			400)
 
 		return
 
 	}
-	resp, err := json.Marshal(&product)
+	resp, err := json.Marshal(&item)
 	if err != nil {
-		log.Fatalf("[UpdateProductcontroller] %s\n", err)
+		log.Fatalf("[UpdateItemcontroller] %s\n", err)
 	}
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
@@ -106,10 +106,10 @@ func UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func SearchProductByName(w http.ResponseWriter, r *http.Request) {
+func SearchItemByName(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	name := vars["name"]
-	product, err := service.ProductService.SearchProductByName(name)
+	item, err := service.ItemService.SearchItemByName(name)
 	if err != nil {
 		common.DisplayError(
 			w,
@@ -119,7 +119,7 @@ func SearchProductByName(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
-	resp, err := json.Marshal(&product)
+	resp, err := json.Marshal(&item)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
@@ -127,11 +127,11 @@ func SearchProductByName(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func GetAllProducts(w http.ResponseWriter, r *http.Request) {
+func GetAllItems(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	store_id := vars["store_id"]
-	products := service.ProductService.GetAllProducts(store_id)
-	resp, err := json.Marshal(&products)
+	items := service.ItemService.GetAllItems(store_id)
+	resp, err := json.Marshal(&items)
 	if err != nil {
 		common.DisplayError(
 			w,
@@ -148,11 +148,11 @@ func GetAllProducts(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func GetProduct(w http.ResponseWriter, r *http.Request) {
+func GetItem(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	product_id := vars["product_id"]
-	product, err := service.ProductService.GetProduct(product_id)
-	resp, err := json.Marshal(&product)
+	item_id := vars["item_id"]
+	item, err := service.ItemService.GetItem(item_id)
+	resp, err := json.Marshal(&item)
 	if err != nil {
 		common.DisplayError(
 			w,

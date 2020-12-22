@@ -13,12 +13,13 @@ type User struct {
 	Phone     string        `json:"phone"`
 	CreatedAt int64         `json:"created_at"`
 	UpdatedAt int64         `json:"updated_at"`
+	LoggedIn  int64         `json:"logged_in"`
 }
 
-//Product Used for create Products
+//Item Used for create Items
 //properties field is other generic properties from the main one
 type ananymous interface{}
-type Product struct {
+type Item struct {
 	Id          bson.ObjectId          `bson:"_id" json:"id"`
 	Name        string                 `json:"name" validate:"required"`
 	Price       float64                `json:"price" validate:"required"`
@@ -52,4 +53,11 @@ type Store struct {
 type Category struct {
 	Id   bson.ObjectId `bson:"_id" json:"id"`
 	Name string        `json:"name" validate:"required"`
+}
+
+type Cart struct {
+	Id          bson.ObjectId `bson:"_id" json:"id"`
+	ItemName    string        `bson:"item_name" json:"item_name"`
+	ItemId      string        `bson:"item_id" json:"item_id"`
+	Description string        `json:"description"`
 }
