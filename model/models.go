@@ -60,4 +60,5 @@ type Cart struct {
 	ItemName    string        `bson:"item_name" json:"item_name"`
 	ItemId      string        `bson:"item_id" json:"item_id"`
 	Description string        `json:"description"`
+	UserId      string        `json:"user_id"`
 }

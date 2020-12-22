@@ -1,21 +1,25 @@
+package service
+
 import (
 	"estore/common"
+	"time"
 )
 
 type RedisService struct{}
 
-var client = common.RedisConn()
-
-func (redis RedisService) Set(key string, value interface{}) {
-	err := client.set(key, value).Err()
-	if err {
-		panic("An error occured on Redis")
-	}
+func (redis *RedisService) Set(key string, value interface{}, t time.Duration) error {
+	var client = common.RedisConn()
+	err := client.Set(nil, key, value, t).Err()
+	return err
 }
 
-func (redis RedisService) Get(key string) interface{} {
-	err := client.Get(key).Err()
-	if err {
-		panic("An error occured trying to retrieve value from redis")
+func (redis *RedisService) Get(key string) (interface{}, error) {
+	var client = common.RedisConn()
+	val, err := client.Get(nil, key).Result()
+	if err != nil {
+		return nil, err
 	}
+	client.Close()
+
+	return val, nil
 }
