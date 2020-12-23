@@ -3,7 +3,6 @@ package service
 import (
 	"encoding/json"
 	"estore/model"
-	"fmt"
 )
 
 type CartService struct{}
@@ -12,7 +11,6 @@ func (c *CartService) AddToCart(cart model.Cart) (string, error) {
 	redis := &RedisService{}
 	key := cart.UserId
 	carts, _ := c.GetFromCart(key)
-	fmt.Println("carts: ", carts)
 	if carts != nil && len(carts) > 0 {
 		for _, c := range carts {
 			if c.ItemId == cart.ItemId {
@@ -58,5 +56,13 @@ func (c *CartService) RemoveFromCart(cart model.Cart) (string, error) {
 	result, err := redis.Set(key, _carts, 0)
 
 	return result, err
+
+}
+
+func (c *CartService) ClearCart(key string) error {
+	redis := &RedisService{}
+	err := redis.Clear(key)
+
+	return err
 
 }

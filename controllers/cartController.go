@@ -149,3 +149,28 @@ func RemoveFromCart(w http.ResponseWriter, r *http.Request) {
 	w.Write(resp)
 
 }
+
+func ClearCart(w http.ResponseWriter, r *http.Request) {
+	var cartService = &service.CartService{}
+	vars := mux.Vars(r)
+	user_id := vars["user_id"]
+	err := cartService.ClearCart(user_id)
+	type Message struct {
+		message string
+	}
+	resp, err := json.Marshal(&Message{"Cleared!"})
+	if err != nil {
+		common.DisplayError(
+			w,
+			err,
+			"An error occured.",
+			500)
+
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	w.Write(resp)
+
+}

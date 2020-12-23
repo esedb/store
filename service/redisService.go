@@ -29,3 +29,13 @@ func (redis *RedisService) Get(key string) (string, error) {
 
 	return val, nil
 }
+
+func (redis *RedisService) Clear(key string) error {
+	var client = common.RedisConn()
+	defer client.Close()
+	ctx := client.Context()
+	err := client.Del(ctx, key).Err()
+
+	return err
+
+}
