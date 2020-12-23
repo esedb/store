@@ -3,6 +3,7 @@ package service
 import (
 	"encoding/json"
 	"estore/model"
+	"fmt"
 )
 
 type CartService struct{}
@@ -10,6 +11,7 @@ type CartService struct{}
 func (c *CartService) AddToCart(cart model.Cart) error {
 	redis := &RedisService{}
 	key := cart.UserId
+	fmt.Println("keys: ", key)
 	val, err := c.GetFromCart(key)
 	if err != nil {
 		return err

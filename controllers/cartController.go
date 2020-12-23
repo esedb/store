@@ -5,6 +5,7 @@ import (
 	"estore/common"
 	"estore/model"
 	"estore/service"
+	"fmt"
 	"log"
 	"net/http"
 
@@ -14,6 +15,7 @@ import (
 
 func AddToCart(w http.ResponseWriter, r *http.Request) {
 	var cartService = &service.CartService{}
+	fmt.Println("after here")
 	var cart model.Cart
 	err := json.NewDecoder(r.Body).Decode(&cart)
 	if err != nil {

@@ -56,9 +56,8 @@ type Category struct {
 }
 
 type Cart struct {
-	Id          bson.ObjectId `bson:"_id" json:"id"`
-	ItemName    string        `bson:"item_name" json:"item_name"`
-	ItemId      string        `bson:"item_id" json:"item_id"`
-	Description string        `json:"description"`
-	UserId      string        `json:"user_id"`
+	ItemName    string `json:"item_name" validate:"required"`
+	ItemId      string `json:"item_id" validate:"required"`
+	Description string `json:"description" validate:"required"`
+	UserId      string `json:"user_id" validate:"required"`
 }

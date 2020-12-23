@@ -11,13 +11,15 @@ type RedisService struct{}
 func (redis *RedisService) Set(key string, value interface{}, t time.Duration) error {
 	var client = common.RedisConn()
 	json.Marshal(&value)
-	err := client.Set(nil, key, value, t).Err()
+	ctx := client.Context()
+	err := client.Set(ctx, key, value, t).Err()
 	return err
 }
 
 func (redis *RedisService) Get(key string) (string, error) {
 	var client = common.RedisConn()
-	val, err := client.Get(nil, key).Result()
+	ctx := client.Context()
+	val, err := client.Get(ctx, key).Result()
 	if err != nil {
 		return "", err
 	}

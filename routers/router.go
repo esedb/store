@@ -11,6 +11,7 @@ func InitRoutes() *mux.Router {
 	router = CategoryRouter(router)
 	router = ItemRouter(router)
 	router = StoreRouter(router)
+	router = CartRouter(router)
 
 	return router
 

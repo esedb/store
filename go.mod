@@ -3,6 +3,7 @@ module estore
 go 1.15
 
 require (
+	github.com/go-delve/delve v1.5.1 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-redis/redis/v8 v8.4.4
 	github.com/gorilla/mux v1.8.0
