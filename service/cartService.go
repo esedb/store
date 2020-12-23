@@ -38,7 +38,6 @@ func (c *CartService) GetFromCart(key string) ([]model.Cart, error) {
 	}
 	var carts []model.Cart
 	json.Unmarshal([]byte(val), &carts)
-	fmt.Println("carts: ", carts)
 
 	return carts, nil
 }
@@ -52,7 +51,7 @@ func (c *CartService) RemoveFromCart(cart model.Cart) (string, error) {
 		if c.ItemId == cart.ItemId {
 			continue
 		} else {
-			_carts = append(_carts, cart)
+			_carts = append(_carts, c)
 		}
 	}
 
