@@ -8,22 +8,24 @@ import (
 
 type RedisService struct{}
 
-func (redis *RedisService) Set(key string, value interface{}, t time.Duration) error {
+func (redis *RedisService) Set(key string, value interface{}, t time.Duration) (string, error) {
 	var client = common.RedisConn()
-	json.Marshal(&value)
+	defer client.Close()
+	_str, _ := json.Marshal(value)
 	ctx := client.Context()
-	err := client.Set(ctx, key, value, t).Err()
-	return err
+	result, err := client.Set(ctx, key, _str, t).Result()
+
+	return result, err
 }
 
 func (redis *RedisService) Get(key string) (string, error) {
 	var client = common.RedisConn()
+	defer client.Close()
 	ctx := client.Context()
 	val, err := client.Get(ctx, key).Result()
 	if err != nil {
 		return "", err
 	}
-	client.Close()
 
 	return val, nil
 }

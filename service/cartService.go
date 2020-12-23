@@ -8,23 +8,26 @@ import (
 
 type CartService struct{}
 
-func (c *CartService) AddToCart(cart model.Cart) error {
+func (c *CartService) AddToCart(cart model.Cart) (string, error) {
 	redis := &RedisService{}
 	key := cart.UserId
-	fmt.Println("keys: ", key)
-	val, err := c.GetFromCart(key)
-	if err != nil {
-		return err
+	carts, _ := c.GetFromCart(key)
+	fmt.Println("carts: ", carts)
+	if carts != nil && len(carts) > 0 {
+		for _, c := range carts {
+			if c.ItemId == cart.ItemId {
+				continue
+			} else {
+				carts = append(carts, cart)
+			}
+		}
+	} else {
+		carts = append(carts, cart)
 	}
-	if val != nil {
-		val = append(val, cart)
-	}
-	carts := []model.Cart{
-		cart,
-	}
-	err = redis.Set(key, carts, 0)
 
-	return err
+	result, err := redis.Set(key, carts, 0)
+
+	return result, err
 }
 
 func (c *CartService) GetFromCart(key string) ([]model.Cart, error) {
@@ -35,6 +38,7 @@ func (c *CartService) GetFromCart(key string) ([]model.Cart, error) {
 	}
 	var carts []model.Cart
 	json.Unmarshal([]byte(val), &carts)
+	fmt.Println("carts: ", carts)
 
 	return carts, nil
 }

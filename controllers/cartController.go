@@ -40,12 +40,22 @@ func AddToCart(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	er := cartService.AddToCart(cart)
-	if err != nil {
+	result, er := cartService.AddToCart(cart)
+	if er != nil {
 		common.DisplayError(
 			w,
 			er,
-			"Unable to add Items to Cart, please try again later or contact the administrator.",
+			"An Error occured trying to add Cart Items",
+			500)
+
+		return
+
+	}
+	if result != "OK" {
+		common.DisplayError(
+			w,
+			er,
+			"Adding Items to Cart Failed!",
 			500)
 
 		return
