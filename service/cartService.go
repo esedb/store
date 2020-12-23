@@ -42,3 +42,22 @@ func (c *CartService) GetFromCart(key string) ([]model.Cart, error) {
 
 	return carts, nil
 }
+
+func (c *CartService) RemoveFromCart(cart model.Cart) (string, error) {
+	redis := &RedisService{}
+	var _carts []model.Cart
+	key := cart.UserId
+	carts, _ := c.GetFromCart(key)
+	for _, c := range carts {
+		if c.ItemId == cart.ItemId {
+			continue
+		} else {
+			_carts = append(_carts, cart)
+		}
+	}
+
+	result, err := redis.Set(key, _carts, 0)
+
+	return result, err
+
+}
