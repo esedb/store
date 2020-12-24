@@ -10,6 +10,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"gopkg.in/go-playground/validator.v9"
 )
 
 //CreateUser controller for createing User
@@ -25,6 +26,19 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
+	_validator := validator.New()
+	verr := _validator.Struct(user)
+	if verr != nil {
+		common.DisplayError(
+			w,
+			verr,
+			"Validation Error!",
+			400)
+
+		return
+
+	}
+
 	er := service.CreateUser(&user)
 	if err != nil {
 		common.DisplayError(

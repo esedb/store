@@ -53,18 +53,6 @@ func (service *itemService) SearchItemByName(name string) (*model.Item, error) {
 
 }
 
-func (service *itemService) GetAllItems(store_id string) []model.Item {
-	context := common.NewContext()
-	defer context.Close()
-	c := context.DbCollection("items")
-	r := &repo.ItemRepository{
-		C: c}
-	item := r.GetAllItems(&store_id)
-
-	return item
-
-}
-
 func (service *itemService) GetItem(item_id string) (*model.Item, error) {
 	context := common.NewContext()
 	defer context.Close()
@@ -78,5 +66,33 @@ func (service *itemService) GetItem(item_id string) (*model.Item, error) {
 	}
 
 	return item, err
+
+}
+
+func (service *itemService) GetAllItemsByStore(store_id string) []model.Item {
+	context := common.NewContext()
+	defer context.Close()
+	c := context.DbCollection("items")
+	r := &repo.ItemRepository{
+		C: c}
+	item := r.GetAllItemsByStore(&store_id)
+
+	return item
+
+}
+
+func (service *itemService) GetAllItems() ([]model.Item, error) {
+	context := common.NewContext()
+	defer context.Close()
+	c := context.DbCollection("items")
+	r := &repo.ItemRepository{
+		C: c}
+	items, err := r.GetAllItems()
+	if err != nil {
+		return nil, err
+
+	}
+
+	return items, err
 
 }

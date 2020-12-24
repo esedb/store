@@ -5,15 +5,16 @@ import "gopkg.in/mgo.v2/bson"
 //User MerchantUser struct
 type User struct {
 	Id        bson.ObjectId `json:"_id,omitempty"`
-	FirstName string        `json:"firstname"`
-	LastName  string        `json:"lastname"`
-	Email     string        `json:"email"`
-	Password  string        `json:"password"`
+	FirstName string        `json:"firstname" validate:"required"`
+	LastName  string        `json:"lastname" validate:"required"`
+	Email     string        `json:"email" validate:"required"`
+	Password  string        `json:"password" validate:"required"`
 	Roles     string        `json:"roles"`
-	Phone     string        `json:"phone"`
+	Phone     string        `json:"phone" validate:"required"`
 	CreatedAt int64         `json:"created_at"`
 	UpdatedAt int64         `json:"updated_at"`
 	LoggedIn  int64         `json:"logged_in"`
+	Type      string        `json:"type" validate:"required"`
 }
 
 //Item Used for create Items

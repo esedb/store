@@ -59,7 +59,7 @@ func (r *ItemRepository) GetItem(item_id string) (*model.Item, error) {
 	return &item, err
 }
 
-func (r *ItemRepository) GetAllItems(store_id *string) []model.Item {
+func (r *ItemRepository) GetAllItemsByStore(store_id *string) []model.Item {
 	var items []model.Item
 	var item model.Item
 	iter := r.C.Find(bson.M{"store_id": store_id}).Iter()
@@ -70,4 +70,21 @@ func (r *ItemRepository) GetAllItems(store_id *string) []model.Item {
 	}
 
 	return items
+}
+
+func (r *ItemRepository) GetAllItems() ([]model.Item, error) {
+	var items []model.Item
+	var item model.Item
+	iter := r.C.Find(nil).Iter()
+	err := iter.Err()
+	if err != nil {
+		return nil, err
+	}
+
+	if iter.Next(&item) {
+		items = append(items, item)
+
+	}
+
+	return items, err
 }

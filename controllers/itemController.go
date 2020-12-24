@@ -127,10 +127,10 @@ func SearchItemByName(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func GetAllItems(w http.ResponseWriter, r *http.Request) {
+func GetAllItemsByStore(w http.ResponseWriter, r *http.Reqest) {
 	vars := mux.Vars(r)
 	store_id := vars["store_id"]
-	items := service.ItemService.GetAllItems(store_id)
+	items := service.ItemService.GetAllItemsByStore(store_id)
 	resp, err := json.Marshal(&items)
 	if err != nil {
 		common.DisplayError(
@@ -162,6 +162,26 @@ func GetItem(w http.ResponseWriter, r *http.Request) {
 
 		return
 	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	w.Write(resp)
+
+}
+
+func GetAllItems(w http.ResponseWriter, r *http.Request) {
+	items, er := service.ItemService.GetAllItems(
+	resp, _ := json.Marshal(&items)
+	if er != nil {
+		common.DisplayError(
+			w,
+		err,
+		"An eror occured.",
+			500)
+
+		return
+	}
+
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
