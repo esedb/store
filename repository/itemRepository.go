@@ -64,7 +64,7 @@ func (r *ItemRepository) GetAllItemsByStore(store_id *string) []model.Item {
 	var item model.Item
 	iter := r.C.Find(bson.M{"store_id": store_id}).Iter()
 
-	if iter.Next(&item) {
+	for iter.Next(&item) {
 		items = append(items, item)
 
 	}
@@ -81,10 +81,10 @@ func (r *ItemRepository) GetAllItems() ([]model.Item, error) {
 		return nil, err
 	}
 
-	if iter.Next(&item) {
+	for iter.Next(&item) {
 		items = append(items, item)
 
 	}
 
-	return items, err
+	return items, nil
 }
