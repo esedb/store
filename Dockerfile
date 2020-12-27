@@ -1,11 +1,21 @@
-FROM golang
+FROM golang:latest
 
-WORKDIR /go/src/app
+WORKDIR /go/src/estore
+
+COPY go.mod .
+COPY go.sum .
+
+RUN go mod download
 
 COPY . .
 
-RUN go get -d -v ./...
+RUN go install
 
-RUN go get install -v ./...
+WORKDIR /go/bin
 
-CMD ["app"]
+
+EXPOSE 7000
+
+# ENTRYPOINT go/bin/estore
+
+CMD ["./estore"]
