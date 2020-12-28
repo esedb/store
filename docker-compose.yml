@@ -1,8 +1,8 @@
 version: '3'
 
-# networks: 
-#   backend:
-#     driver: bridge
+networks: 
+  backend:
+    driver: bridge
 
 services:
 
@@ -11,20 +11,32 @@ services:
     restart: always
     ports:
       - 27017:27017
-    network_mode: host      
+    networks:
+      - backend
+    environment: 
+      - bind-address=0.0.0.0
 
   redis:
     image: redis
     restart: always
     ports: 
       - 6379:6379
-    network_mode: host
+    networks:
+      - backend
 
   estore:
     image: 'estore'
     ports: 
       - 6000:7000
-    network_mode: host
+    networks:
+      - backend
+    environment: 
+      - MONGO_HOST=mongo
+      - REDIS_HOST=redis
+    depends_on:
+      - mongo
+      - redis
+
 
   
 

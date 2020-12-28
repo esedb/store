@@ -2,6 +2,7 @@ package common
 
 import (
 	"log"
+	"os"
 	"time"
 
 	"gopkg.in/mgo.v2"
@@ -12,9 +13,17 @@ var err error
 
 //GetSession Return Sessions
 func GetSession() *mgo.Session {
+	host := os.Getenv("MONGO_HOST")
+	address := ""
+	if host != "" {
+		address = host + ":27017"
+	} else {
+		address = "localhost:27017"
+
+	}
 	if session == nil {
 		session, err = mgo.DialWithInfo(&mgo.DialInfo{
-			Addrs: []string{AppConfig.MongoDBHost},
+			Addrs: []string{address},
 
 			// Username: AppConfig.DBUser,
 			// Password: AppConfig.DBPwd,

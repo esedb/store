@@ -1,7 +1,0 @@
-{
-    "Server": ":7000",
-    "MongoDBHost": "localhost",
-    "DBUser": "bruno",
-    "DBPwd": "donpedro42",
-    "DataBase": "estore"
-}
