@@ -21,7 +21,7 @@ func initConfig() {
 }
 
 func loadAppConfig() {
-	file, err := os.Open("common/config.json")
+	file, err := os.Open("config.json")
 	defer file.Close()
 	if err != nil {
 		log.Fatalf("Error loading config.json %s\n", err)

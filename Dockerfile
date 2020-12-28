@@ -7,6 +7,8 @@ COPY go.sum .
 
 RUN go mod download
 
+COPY config.json /go/bin/
+
 COPY . .
 
 RUN go install
