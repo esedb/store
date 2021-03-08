@@ -1,0 +1,10 @@
+.vscode
+gin-bin.exe
+service/_debug_bin
+_debug_bin
+keys
+gin-bin.exe
+common/keys
+config.json
+common/keys/app.rsa
+common/keys/app.rsa.pub
